@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleUpdateRequestDto {
-    private String title;
-    private String content;
+public class SignInRequestDto {
+    private String email;
+    private String password;
 }

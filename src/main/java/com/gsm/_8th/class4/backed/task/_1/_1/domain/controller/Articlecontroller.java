@@ -1,4 +1,4 @@
-package com.gsm._8th.class4.backed.task._1._1.domain.Controller;
+package com.gsm._8th.class4.backed.task._1._1.domain.controller;
 
 import com.gsm._8th.class4.backed.task._1._1.domain.dto.ArticleRequestDto;
 import com.gsm._8th.class4.backed.task._1._1.domain.dto.ArticleResponseDto;
@@ -18,29 +18,29 @@ public class Articlecontroller {
 
     @GetMapping //GET요청 받고 /articles가 자동으로 붙음
     public ResponseEntity<List<ArticleResponseDto>> getAllArticles() { //응답을 감싸는 클래스 HTTP 상태코드 데이터를 같이 반환
-        return ResponseEntity.ok(articleService.getAllArticles()); //200 OK 상태코드와 함께 데이터를 반환
+        return ResponseEntity.ok(articleService.getAll()); //200 OK 상태코드와 함께 데이터를 반환
     }
 
     @GetMapping("/{articleId}") // /articles/1같은 URL을 받는다(?)
     public ResponseEntity<ArticleResponseDto> getArticle(@PathVariable Long articleId) { // {articleId}값을 꺼내서 매개변수에 넣어줌
-        return ResponseEntity.ok(articleService.getArticle(articleId));
+        return ResponseEntity.ok(articleService.getById(articleId));
     }
 
     @PostMapping //POST 요청 받기
     public ResponseEntity<ArticleResponseDto> createArticle(@RequestBody ArticleRequestDto dto) { //클라이언트가 보낸 JSON을 DTO로 변환
-        return ResponseEntity.status(201).body(articleService.createArticle(dto)); //201 Created 상태코드와 함께 데이터를 반환
+        return ResponseEntity.status(201).body(articleService.create(dto)); //201 Created 상태코드와 함께 데이터를 반환
     }
 
     @PutMapping("/{articleId}")
     public ResponseEntity<ArticleResponseDto> updateArticle(
             @PathVariable Long articleId,
             @RequestBody ArticleUpdateRequestDto dto) {
-        return ResponseEntity.ok(articleService.updateArticle(articleId, dto));
+        return ResponseEntity.ok(articleService.update(articleId, dto));
     }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long articleId) { //반환할 데이터가 없음
-        articleService.deleteArticle(articleId);
+        articleService.delete(articleId);
         return ResponseEntity.noContent().build(); //204 No Content(요청 처리는 성공 했으나 응답 본문에 반환할 데이터가 없음) 상태코드 반환
     }
 }
